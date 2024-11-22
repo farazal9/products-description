@@ -8,7 +8,7 @@ import {
   Container,
 } from "@mui/material";
 import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -36,27 +36,28 @@ const Product = () => {
   return (
     <Container>
       {isLoading ? (
-        <Box className="text-center my-5">
+        <Box style={{ textAlign: "center", margin: "2rem 0" }}>
           <CircularProgress />
         </Box>
       ) : (
-        <Box display="flex" gap={3}>
+        <Box style={{ display: "flex", gap: "1.5rem" }}>
           {/* Left Section: Product List */}
-          <Box flex={1}>
+          <Box style={{ flex: 1 }}>
             {products.map((product, index) => (
               <Card
                 key={index}
-                className="d-flex align-items-center p-3 mb-4"
-                sx={{
+                style={{
                   cursor: "pointer",
                   maxWidth: "400px",
                   textAlign: "center",
                   display: "flex",
                   flexDirection: "row",
-                  gap: 2,
+                  gap: "1rem",
+                  padding: "1rem",
+                  marginBottom: "1rem",
                   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                 }}
-                onClick={() => setSelectedProduct(product)} // Update selected product on card click
+                onClick={() => setSelectedProduct(product)}
               >
                 <img
                   src={product.image}
@@ -68,18 +69,21 @@ const Product = () => {
                   }}
                 />
                 <Box>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography variant="h6" style={{ marginBottom: "0.5rem" }}>
                     {product.title.length > 20
                       ? `${product.title.slice(0, 20)}...`
                       : product.title}
                   </Typography>
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography
+                    variant="body1"
+                    style={{ color: "gray", fontSize: "0.9rem" }}
+                  >
                     ⭐ Rating: {product.rating.rate} ({product.rating.count} reviews)
                   </Typography>
                   <Box>
                     <ExpandCircleDownIcon
                       onClick={() => setSelectedProduct(product)}
-                      sx={{ cursor: "pointer", color: "primary.main" }}
+                      style={{ cursor: "pointer", color: "blue" }}
                     />
                   </Box>
                 </Box>
@@ -88,22 +92,43 @@ const Product = () => {
           </Box>
 
           {/* Right Section: Product Description */}
-          <Box flex={1} className="p-4 border-start">
+          <Box
+            style={{
+              flex: 1,
+              padding: "1rem",
+              borderLeft: "1px solid #ddd",
+            }}
+          >
             {selectedProduct ? (
               <>
-             <Box className="d-flex align-items-center justify-content-between">
-             <Typography variant="h5">{selectedProduct.title}</Typography>
-             <CloseIcon sx={{cursor:"pointer"}} onClick={()=> setSelectedProduct(null)}  color="error"/>
-             </Box>
+                <Box
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography variant="h5">{selectedProduct.title}</Typography>
+                  <CloseIcon
+                    style={{ cursor: "pointer", color: "red" }}
+                    onClick={() => setSelectedProduct(null)}
+                  />
+                </Box>
                 <img
                   src={selectedProduct.image}
                   alt={selectedProduct.title}
                   style={{ maxWidth: "100%", marginTop: "1rem" }}
                 />
-                <Typography variant="body1" className="mt-3">
+                <Typography style={{ marginTop: "1rem", fontSize: "1rem" }}>
                   {selectedProduct.description}
                 </Typography>
-                <Typography variant="h6" className="mt-3">
+                <Typography
+                  style={{
+                    marginTop: "1rem",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                  }}
+                >
                   Price: ${selectedProduct.price}
                 </Typography>
               </>
